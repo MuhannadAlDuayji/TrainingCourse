@@ -1,12 +1,12 @@
 package com.amigos.student.studentamigos.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController()
+@RequestMapping("api/v1/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -19,5 +19,14 @@ public class StudentController {
     @GetMapping
     public List<Student> getStudents(){
        return studentService.students();
+    }
+
+    @PostMapping
+    public void addNewStudent(@RequestBody Student newStudent){
+        studentService.addNewStudent(newStudent);
+    }
+    @DeleteMapping(path = "{studentId}")
+    public void deleteStudent(@PathVariable("studentId") Long studentId){
+        studentService.deleteStudent(studentId);
     }
 }
